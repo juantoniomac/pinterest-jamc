@@ -7,15 +7,21 @@
       <div class="img-thumbnail">
         <%= pin.name %>
         <%= image_tag(pin.photo, :class => 'img-fluid') %>
-        <div class="buttons justify-content-center" style="margin-bottom: 10px; margin-top: 10px;">
-          <%= link_to 'Show', pin, :class => 'btn' %>
-          <%= link_to 'Edit', edit_pin_path(pin), :class => 'btn' %>
-          <%= link_to 'Destroy', pin, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn' %>
+        <div class="buttons d-flex justify-content-center row" >
+          <div>
+          <%= link_to 'Show', pin, :class => 'btn btn-secondary' %></div>
+          <div>
+            <%= link_to 'Edit', edit_pin_path(pin), :class => 'btn btn-secondary' %></div>
+          <% if user_signed_in? %>
+          <div>
+            <%= link_to 'Destroy', pin, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-secondary' %></div>
+            <% end %>
         </div>
       </div>
     </div>
   <% end %>
 </div>
 <br>
-
-<%= link_to 'New Pin', new_pin_path %>
+<% if user_signed_in? %>
+<%= link_to 'New Pin', new_pin_path, :class=> 'btn btn-primary' %>
+<% end %>

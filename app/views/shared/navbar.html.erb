@@ -17,12 +17,18 @@
     </ul>
     <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
       <ul class="navbar-nav">
+      <% if current_user.nil? %>
         <li class="nav-item">
           <a class="nav-link" href="<%= new_user_session_path %>">Ingresar</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<%= new_user_registration_path %>">Registrar</a>
         </li>
+          <% else %>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= destroy_user_session_path %>" data-method="DELETE">Salir</a>
+        </li>
+          <% end %>
       </ul>
     </div>
   </div>
