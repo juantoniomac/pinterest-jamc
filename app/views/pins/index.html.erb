@@ -1,27 +1,42 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Pins</h1>
+
 <div class="container">
-  <% @pins.each do |pin| %>
-    <div class="col-md-3 col-lg-3 d-inline-block">
-      <div class="img-thumbnail">
-        <%= pin.name %>
-        <%= image_tag(pin.photo, :class => 'img-fluid') %>
-        <div class="buttons d-flex justify-content-center row" >
-          <div>
-          <%= link_to 'Show', pin, :class => 'btn btn-secondary' %></div>
-          <div>
-            <%= link_to 'Edit', edit_pin_path(pin), :class => 'btn btn-secondary' %></div>
-          <% if user_signed_in? %>
-          <div>
-            <%= link_to 'Destroy', pin, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-secondary' %></div>
+  <h1>Pins</h1>
+  <div clas="justify-content-center d-flex">
+    <% count = 1; %>
+    <% @pins.each do |pin| %>
+      <% if count == 1 %>
+        <div class="row">
+      <% end %>
+      <div class="col-md-3 col-lg-3 d-inline-block">
+        <div class="img-thumbnail">
+          <%= pin.name %>
+          <%= image_tag(pin.photo, :class => 'img-fluid') %>
+          <div class="buttons d-flex justify-content-center row">
+            <div>
+              <%= link_to 'Show', pin, :class => 'btn btn-secondary' %></div>
+            <div>
+              <%= link_to 'Edit', edit_pin_path(pin), :class => 'btn btn-secondary' %></div>
+            <% if user_signed_in? %>
+              <div>
+                <%= link_to 'Destroy', pin, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-secondary' %></div>
             <% end %>
+          </div>
         </div>
       </div>
+      <% if count == 4 %>
+        </div>
+        <br/>
+        <% count = 1 %>
+      <% else %>
+        <% count += 1 %>
+      <% end %>
+    <% end %>
     </div>
-  <% end %>
-</div>
-<br>
-<% if user_signed_in? %>
-<%= link_to 'New Pin', new_pin_path, :class=> 'btn btn-primary' %>
-<% end %>
+    <br>
+    <% if user_signed_in? %>
+      <%= link_to 'New Pin', new_pin_path, :class => 'btn btn-primary' %>
+    <% end %>
+
+  </div>
