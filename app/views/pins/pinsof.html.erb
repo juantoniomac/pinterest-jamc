@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <h1>Mis Pins</h1>
+    </div>
+    <div class="col-6 justify-content-right">
+      <% if user_signed_in? %>
+        <%= link_to 'New Pin', new_pin_path, :class => 'btn btn-primary float-right' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="grid">
+    <div>
+      <% @pins.each do |pin| %>
+        <div class="grid-item" style="width: 250px ;">
+          <div class="img-thumbnail">
+            <%= pin.name %>
+            <%= image_tag(pin.photo, :class => 'img-fluid') %>
+            <div class="buttons d-flex justify-content-center row">
+              <div>
+                <%= link_to 'Show', pin, :class => 'btn btn-secondary' %></div>
+              <div>
+                <%= link_to 'Edit', edit_pin_path(pin), :class => 'btn btn-secondary' %></div>
+              <% if user_signed_in? %>
+                <div>
+                  <%= link_to 'Destroy', pin, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-secondary' %></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <br>
+  </div>
+
+</div>
+
+
+<script type="text/javascript">
+    $('.grid').masonry({
+// options
+        itemSelector: '.grid-item',
+        columnWidth: 250,
+        horizontalOrder: true
+    });
+
+    $(window).load(function () {
+        $('.grid').masonry({
+// options
+            itemSelector: '.grid-item',
+            columnWidth: 250,
+            horizontalOrder: true
+        });
+
+    });
+</script>

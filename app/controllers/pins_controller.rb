@@ -8,6 +8,18 @@ class PinsController < ApplicationController
     @pins = Pin.all
   end
 
+  def mypins
+    @pins = nil
+    @pins = current_user.pins
+    @count = 0
+  end
+
+  def pinsof
+    @user_id = params[:user_id]
+    @user = User.find(@user_id)
+    @pins = @user.pins
+  end
+
   # GET /pins/1
   # GET /pins/1.json
   def show
@@ -26,7 +38,7 @@ class PinsController < ApplicationController
   # POST /pins.json
   def create
     @pin = Pin.new(pin_params)
-
+    @pin.user_id = current_user.id
     respond_to do |format|
       if @pin.save
         format.html { redirect_to @pin, notice: 'Pin was successfully created.' }
@@ -72,4 +84,7 @@ class PinsController < ApplicationController
     def pin_params
       params.require(:pin).permit(:photo, :description, :name)
     end
+
+
+
 end
